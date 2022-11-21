@@ -1,3 +1,4 @@
+import Vue from "vue";
 const state = {
   products : []
 }
@@ -19,13 +20,18 @@ const mutations = {
 
 const actions = {
   initApp({commit}){
-    // Vue Resource İşlemleri...
+    // Vue Resource
   },
   saveProduct({commit}, payload){
-    // Vue Resource İşlemleri...
+
+    //You must root directory in add .env file and variable VUE_APP_FIREBASE_URL= "YOUR FIREBASE URL"
+     Vue.http.post(process.env.VUE_APP_FIREBASE_URL+"/products.json", payload)
+    .then((response) => {
+      console.log(response);
+    })
   },
   sellProduct({commit}, payload){
-    // Vue Resource İşlemleri...
+    // Vue Resource
   }
 }
 
