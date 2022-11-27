@@ -22,7 +22,14 @@ const mutations = {
 
 const actions = {
   initApp({commit}){
-    // Vue Resource
+    Vue.http.get(process.env.VUE_APP_FIREBASE_URL+"/products.json")
+    .then(response =>{
+      let data = response.body;
+      for(let key in data){
+        data[key].key = key;
+        commit("updateProductList", data[key]);
+      }
+    })
   },
   saveProduct({dispatch,commit,state}, product){
 

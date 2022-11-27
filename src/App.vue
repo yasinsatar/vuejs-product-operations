@@ -24,6 +24,7 @@ export default {
   },
   created(){
     this.$store.dispatch("getTradeResult");
+    this.$store.dispatch("initApp");
   }
 }
 </script>
