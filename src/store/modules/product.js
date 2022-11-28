@@ -10,7 +10,10 @@ const getters = {
     return state.products;
   },
   getProduct(state){
-
+    //The "key" captures the data sent to the "getter".
+    return key => state.products.filter(element =>{
+      return element.key == key;
+    })
   }
 }
 
