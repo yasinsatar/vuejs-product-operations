@@ -52,8 +52,27 @@ const actions = {
       router.replace("/");
     })
   },
-  sellProduct({commit}, payload){
+  sellProduct({state,commit,dispatch}, payload){
     // Vue Resource
+    let product = state.products.filter(element =>{
+      return element.key == payload.key;
+    })[0]
+    if(product){
+      let new_count= product.count - payload.count;
+
+      Vue.http.patch(process.env.VUE_APP_FIREBASE_URL+"/products/"+ payload.key +".json", {count: new_count})
+      .then(response =>{
+        product.count= new_count;
+        let tradeResult = {
+          purchase:0,
+          sale: product.price,
+          count: payload.count,
+        }
+        dispatch("setTradeResult", tradeResult)
+        router.replace("/");
+      });
+    }
+
   }
 }
 
